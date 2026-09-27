@@ -11,6 +11,12 @@ namespace Reception.Domain.Models
         public ICollection<Product> Products { get;  set; } = [];
 
         [NotMapped]
+        public int ReceivedProducts => Products.Sum(product => product.ReceivedProducts);
+        [NotMapped]
+        public int TotalProducts => Products.Count();
+        [NotMapped]
+        public string ReceivedPercent => $"{ReceivedProducts}/{TotalProducts}";
+        [NotMapped]
         public ReceiptStatus Status => GetReceiptStatus(Products.Select(product => product.IsReceived));
 
         private static ReceiptStatus GetReceiptStatus(IEnumerable<bool> receiptStates)

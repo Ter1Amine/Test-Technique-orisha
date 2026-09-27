@@ -24,18 +24,21 @@ public class CommandService : ICommandService
     private static CommandDto ToDto(Command command) =>
         new(command.CommandId,
             ((CommandStatus)command.Status).ToString(),
+            command.ReceivedPercent,
             command.Palettes.Select(ToDto).ToList());
 
     private static PaletteDto ToDto(Palette palette) =>
         new(palette.PaletteId,
             palette.CommandId,
             palette.Status.ToString(),
+            palette.ReceivedPercent,
             palette.Cartons.Select(ToDto).ToList());
 
     private static CartonDto ToDto(Carton carton) =>
         new(carton.CartonId,
             carton.PaletteId,
             carton.Status.ToString(),
+            carton.ReceivedPercent,
             carton.Products.Select(ToDto).ToList());
 
     private static ProductDto ToDto(Product product) =>

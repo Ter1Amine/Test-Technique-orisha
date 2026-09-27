@@ -10,6 +10,12 @@ namespace Reception.Domain.Models
         public Command Command { get; set; }
         public ICollection<Carton> Cartons { get; set; } = [];
         [NotMapped]
+        public int ReceivedProducts => Cartons.Sum(carton => carton.ReceivedProducts);
+        [NotMapped]
+        public int TotalProducts => Cartons.Sum(carton => carton.TotalProducts);
+        [NotMapped]
+        public string ReceivedPercent => $"{ReceivedProducts}/{TotalProducts}";
+        [NotMapped]
         public ReceiptStatus Status
         {
             get
