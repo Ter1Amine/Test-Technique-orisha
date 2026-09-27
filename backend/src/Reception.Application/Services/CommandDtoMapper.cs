@@ -1,29 +1,14 @@
-using Reception.Application.Interfaces;
 using Reception.Core.Dtos;
 using Reception.Core.Enums;
-using Reception.Domain.Interfaces;
 using Reception.Domain.Models;
 
 namespace Reception.Application.Services;
 
-public class CommandService : ICommandService
+internal static class CommandDtoMapper
 {
-    private readonly ICommandRepository _commandRepository;
-
-    public CommandService(ICommandRepository commandRepository)
-    {
-        _commandRepository = commandRepository;
-    }
-
-    public async Task<CommandDto> GetCommandById(string commandId)
-    {
-        var command = await _commandRepository.GetCommandById(commandId);
-        return ToDto(command);
-    }
-
-    private static CommandDto ToDto(Command command) =>
+    public static CommandDto ToDto(Command command) =>
         new(command.CommandId,
-            ((CommandStatus)command.Status).ToString(),
+            command.Status.ToString(),
             command.Palettes.Select(ToDto).ToList());
 
     private static PaletteDto ToDto(Palette palette) =>

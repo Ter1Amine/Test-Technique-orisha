@@ -6,5 +6,6 @@ namespace Reception.Domain.Interfaces
     public interface ICommandRepository
     {
         public Task<Command> GetCommandById(string commandId);
+        public Task SaveChangeAsync();
     }
 }

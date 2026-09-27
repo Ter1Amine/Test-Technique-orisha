@@ -5,16 +5,20 @@ public record ProductDto(
     string Name,
     string Color,
     string Size,
-    int Quantity);
+    int Quantity,
+    bool IsReceived,
+    string Satus);
 
 public record CartonDto(
     string CartonId,
     string PaletteId,
+    string Status,
     IReadOnlyCollection<ProductDto> Products);
 
 public record PaletteDto(
     string PaletteId,
     string CommandId,
+    string Status,
     IReadOnlyCollection<CartonDto> Cartons);
 
 public record CommandDto(

@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Reception.Core.Enums;
 using Reception.Domain.Interfaces;
 using Reception.Domain.Models;
 using Reception.Infrastructure.Persistence;
@@ -15,7 +14,7 @@ namespace Reception.Infrastructure.Repositories
             _dbContext = dbContext;
         }
 
-        public async Task<Command>GetCommandById(string commandId)
+        public async Task<Command> GetCommandById(string commandId)
         {
             return await _dbContext.Commands
                 .Include(c => c.Palettes)
@@ -24,5 +23,11 @@ namespace Reception.Infrastructure.Repositories
                 .Where(c => c.CommandId == commandId)
                 .SingleOrDefaultAsync();
         }
+
+        public async Task SaveChangeAsync()
+        {
+            await _dbContext.SaveChangesAsync();
+        }
+
     }
 }

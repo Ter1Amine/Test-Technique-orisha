@@ -4,5 +4,5 @@ namespace Reception.Application.Interfaces;
 
 public interface ICommandService
 {
-    Task<CommandDto> GetCommandById(string commandId);
+    Task<CommandDto?> GetCommandById(string commandId);
 }

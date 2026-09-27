@@ -4,8 +4,12 @@ using Reception.Infrastructure.Persistence.Configurations;
 
 namespace Reception.Infrastructure.Persistence;
 
-public class ReceptionDbContext(DbContextOptions<ReceptionDbContext> options) : DbContext(options)
+public class ReceptionDbContext : DbContext
 {
+    public ReceptionDbContext(DbContextOptions<ReceptionDbContext> options) : base(options)
+	{
+	}
+
 	public DbSet<Command> Commands => Set<Command>();
 	public DbSet<Palette> Palettes => Set<Palette>();
 	public DbSet<Carton> Cartons => Set<Carton>();
