@@ -38,23 +38,19 @@ export async function getAllCommands(): Promise<Command[]> {
   return response.json()
 }
 
-export type ReceiptTarget =
-  | { level: 'command' }
-  | { level: 'palette' | 'carton' | 'product'; id: string }
+export async function getCommandById(commandId: string): Promise<Command> {
+  const response = await fetch(`${API_URL}/api/command/${encodeURIComponent(commandId)}`)
+  if (!response.ok) throw new Error(`HTTP ${response.status}`)
+  return response.json()
+}
 
-const receiptSegments = { palette: 'palettes', carton: 'cartons', product: 'products' } as const
-
-export async function updateReceipt(
+export async function updateProductReceipt(
   commandId: string,
-  target: ReceiptTarget,
+  productId: string,
   isReceived: boolean,
 ): Promise<Command> {
-  const base = `${API_URL}/api/${encodeURIComponent(commandId)}`
-  const path =
-    target.level === 'command'
-      ? `${base}/receipt`
-      : `${base}/${receiptSegments[target.level]}/${encodeURIComponent(target.id)}/receipt`
-  const response = await fetch(`${path}?isReceived=${isReceived}`, { method: 'PUT' })
+  const url = `${API_URL}/api/${encodeURIComponent(commandId)}/products/${encodeURIComponent(productId)}/receipt?isReceived=${isReceived}`
+  const response = await fetch(url, { method: 'PUT' })
   if (!response.ok) throw new Error(`HTTP ${response.status}`)
   return response.json()
 }

@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="240" height="240" viewBox="0 0 240 240" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" opacity="0.18">
+  <!-- shopping cart -->
+  <g transform="translate(20 24)">
+    <path d="M0 4h10l8 34h34l7-24H14"/>
+    <circle cx="22" cy="46" r="4"/>
+    <circle cx="46" cy="46" r="4"/>
+  </g>
+  <!-- parcel box -->
+  <g transform="translate(140 30)">
+    <path d="M0 14 30 0l30 14v32L30 60 0 46Z"/>
+    <path d="M0 14l30 14 30-14M30 28v32"/>
+    <path d="M15 7l30 14"/>
+  </g>
+  <!-- price tag -->
+  <g transform="translate(36 140)">
+    <path d="M0 0h28l30 30-28 28L0 28Z"/>
+    <circle cx="12" cy="12" r="4"/>
+  </g>
+  <!-- shopping bag -->
+  <g transform="translate(150 140)">
+    <path d="M4 14h44l-4 44H8Z"/>
+    <path d="M16 20V10a10 10 0 0 1 20 0v10"/>
+  </g>
+</svg>

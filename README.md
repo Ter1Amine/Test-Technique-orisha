@@ -132,7 +132,7 @@ The same principle applies to receipt updates: each `PUT .../receipt` returns th
 
 - List of commands with status badge and received count (e.g. `3/5`).
 - Collapsible details: command → palettes → cartons → products.
-- "Modifier" button on each level to mark it as received / not received.
+- Checkboxes on products (and "check all" on cartons / palettes / commands): statuses and counts update live in the frontend, then "Enregistrer" sends the changes to the API ("Annuler" discards them).
 - "Ajouter une commande" form to create a command with its full hierarchy.
 
 ## Tests

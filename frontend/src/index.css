@@ -1,6 +1,10 @@
 body {
   margin: 0;
+  min-height: 100vh;
   font-family: system-ui, 'Segoe UI', Roboto, sans-serif;
   color: #222;
-  background: #fff;
+  background:
+    url('/ecommerce-pattern.svg') repeat,
+    linear-gradient(135deg, #1e3c72 0%, #2a5298 50%, #6a3093 100%) fixed;
+  background-size: 240px 240px, cover;
 }
