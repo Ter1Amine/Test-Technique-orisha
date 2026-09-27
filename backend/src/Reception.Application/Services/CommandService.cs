@@ -15,10 +15,10 @@ public class CommandService : ICommandService
         _commandRepository = commandRepository;
     }
 
-    public async Task<IEnumerable<CommandDto>> GetInProgressCommandsAsync()
+    public async Task<CommandDto> GetCommandById(string commandId)
     {
-        var commands = await _commandRepository.GetCommandsByStatus(CommandStatus.InProgress);
-        return commands.Select(ToDto).ToList();
+        var command = await _commandRepository.GetCommandById(commandId);
+        return ToDto(command);
     }
 
     private static CommandDto ToDto(Command command) =>

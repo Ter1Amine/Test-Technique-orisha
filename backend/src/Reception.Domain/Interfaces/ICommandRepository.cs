@@ -5,6 +5,6 @@ namespace Reception.Domain.Interfaces
 {
     public interface ICommandRepository
     {
-        public Task<IEnumerable<Command>> GetCommandsByStatus(CommandStatus status);
+        public Task<Command> GetCommandById(string commandId);
     }
 }

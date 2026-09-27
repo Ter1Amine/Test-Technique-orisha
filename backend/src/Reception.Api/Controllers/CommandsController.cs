@@ -15,11 +15,11 @@ public class CommandsController : ControllerBase
         _commandService = commandService;
     }
 
-    [HttpGet("in-progress")]
-    [ProducesResponseType(typeof(IEnumerable<CommandDto>), StatusCodes.Status200OK)]
-    public async Task<ActionResult<IEnumerable<CommandDto>>> GetInProgressCommands()
+    [HttpGet("command/{commandId}")]
+    [ProducesResponseType(typeof(CommandDto), StatusCodes.Status200OK)]
+    public async Task<ActionResult<CommandDto>> GetCommandById(string commandId)
     {
-        var commands = await _commandService.GetInProgressCommandsAsync();
-        return Ok(commands);
+        var command = await _commandService.GetCommandById(commandId);
+        return Ok(command);
     }
 }

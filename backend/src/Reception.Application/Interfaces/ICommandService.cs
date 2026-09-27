@@ -4,5 +4,5 @@ namespace Reception.Application.Interfaces;
 
 public interface ICommandService
 {
-    Task<IEnumerable<CommandDto>> GetInProgressCommandsAsync();
+    Task<CommandDto> GetCommandById(string commandId);
 }

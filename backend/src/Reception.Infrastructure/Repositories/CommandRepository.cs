@@ -15,14 +15,14 @@ namespace Reception.Infrastructure.Repositories
             _dbContext = dbContext;
         }
 
-        public async Task<IEnumerable<Command>> GetCommandsByStatus(CommandStatus status)
+        public async Task<Command>GetCommandById(string commandId)
         {
             return await _dbContext.Commands
                 .Include(c => c.Palettes)
                 .ThenInclude(p => p.Cartons)
                 .ThenInclude(c => c.Products)
-                .Where(c => c.Status == (int)status)
-                .ToListAsync();
+                .Where(c => c.CommandId == commandId)
+                .SingleOrDefaultAsync();
         }
     }
 }
