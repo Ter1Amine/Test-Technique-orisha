@@ -27,6 +27,51 @@ frontend/   React 19 + TypeScript + Vite
     CommandForm.tsx  Command creation form
 ```
 
+## Backend architecture
+
+The backend follows a layered (clean) architecture. Each project has a single responsibility, and dependencies only point **downwards**:
+
+```mermaid
+graph TD
+    Api[Reception.Api<br/>Controllers, Program.cs] --> Application
+    Api --> Infrastructure
+    Infrastructure[Reception.Infrastructure<br/>EF Core, DbContext, Repositories, Migrations] --> Application
+    Infrastructure --> Domain
+    Application[Reception.Application<br/>Services, validation, DTO mapping] --> Domain
+    Domain[Reception.Domain<br/>Entities, repository interfaces] --> Core
+    Core[Reception.Core<br/>DTOs, Enums]
+```
+
+| Project | Responsibility | References |
+| --- | --- | --- |
+| `Reception.Core` | Shared contracts: DTOs (`CommandDto`, `CreateCommandRequest`, ...) and enums (`ReceiptStatus`, `CommandStatus`) | nothing |
+| `Reception.Domain` | Entities (`Command`, `Palette`, `Carton`, `Product`), status rules, `ICommandRepository` | Core |
+| `Reception.Application` | Business services (`CommandService`, `*ReceiptService`), validation, entity → DTO mapping | Domain (and Core transitively) |
+| `Reception.Infrastructure` | EF Core `ReceptionDbContext`, entity configurations, migrations, `CommandRepository` | Application, Domain |
+| `Reception.Api` | HTTP layer: controllers, DI setup, CORS, OpenAPI | Application, Infrastructure |
+
+### Why a separate `Reception.Core` class library?
+
+DTOs and enums are needed by **several layers at the same time**:
+
+- the **controller** (Api) receives and returns DTOs (`CreateCommandRequest`, `CommandDto`);
+- the **services** (Application) build and return those same DTOs;
+- the **entities** (Domain) use the `ReceiptStatus` enum to compute their status.
+
+If these types lived in one of those projects, the others would have to reference it, which quickly leads to a **circular dependency**. For example:
+
+- if the DTOs were in `Reception.Api`, then `Reception.Application` would need to reference `Reception.Api`, while `Reception.Api` already references `Reception.Application` → **cycle**;
+- if `ReceiptStatus` were in `Reception.Application`, then `Reception.Domain` would need to reference `Reception.Application`, while `Reception.Application` already references `Reception.Domain` → **cycle**.
+
+.NET does not allow circular project references, and even when a workaround is possible it tightly couples the layers.
+
+`Reception.Core` solves this by acting as a **neutral intermediate library** at the bottom of the graph:
+
+- it contains only plain contracts (records and enums), with no logic and **no dependencies**;
+- every layer can reference it (directly or transitively) without referencing each other;
+- the dependency graph stays one-directional (Api → Application → Domain → Core), so no cycle is possible;
+- changes to a contract happen in one place and are shared by the controller, the services and the domain.
+
 ## Prerequisites
 
 - [.NET SDK 9.0.311+](https://dotnet.microsoft.com/download) (see `backend/global.json`)
