@@ -1,3 +1,4 @@
+using Reception.Application;
 using Reception.Infrastructure;
 
 const string FrontendCorsPolicy = "Frontend";
@@ -7,6 +8,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 builder.Services.AddOpenApi();
 builder.Services.AddInfrastructure(builder.Configuration);
+builder.Services.AddApplication();
 
 var allowedOrigins = builder.Configuration.GetSection("Cors:AllowedOrigins").Get<string[]>() ?? [];
 builder.Services.AddCors(options =>
@@ -25,3 +27,5 @@ app.UseCors(FrontendCorsPolicy);
 app.MapControllers();
 
 app.Run();
+
+public partial class Program;

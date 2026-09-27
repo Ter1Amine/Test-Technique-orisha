@@ -10,6 +10,7 @@ public class CommandConfiguration : IEntityTypeConfiguration<Command>
     {
         builder.HasKey(command => command.CommandId);
         builder.Property(command => command.CommandId).ValueGeneratedNever();
+        builder.Property(command => command.Status).IsRequired();
 
         builder.HasMany(command => command.Palettes)
             .WithOne(palette => palette.Command)
