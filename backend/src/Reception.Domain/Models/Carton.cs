@@ -11,7 +11,7 @@ namespace Reception.Domain.Models
         public ICollection<Product> Products { get;  set; } = [];
 
         [NotMapped]
-        public int ReceivedProducts => Products.Sum(product => product.ReceivedProducts);
+        public int ReceivedProducts => Products.Count(product => product.IsReceived);
         [NotMapped]
         public int TotalProducts => Products.Count();
         [NotMapped]

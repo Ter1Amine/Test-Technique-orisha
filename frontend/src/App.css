@@ -1,0 +1,203 @@
+.container {
+  max-width: 1200px;
+  margin: 40px auto;
+  padding: 0 16px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 8px;
+}
+
+.level {
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  margin: 8px 0;
+  padding: 0 12px;
+}
+
+.level[open] {
+  padding-bottom: 8px;
+}
+
+.level summary {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 12px;
+  padding: 10px 0;
+  cursor: pointer;
+}
+
+.level summary .title {
+  flex: 1;
+  min-width: 150px;
+  font-weight: 600;
+}
+
+.level summary .count {
+  color: #666;
+}
+
+.command {
+  background: #fafafa;
+}
+
+.palette,
+.carton {
+  background: #fff;
+}
+
+.empty {
+  color: #888;
+  font-style: italic;
+}
+
+th,
+td {
+  padding: 10px 12px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+th {
+  background: #f5f5f5;
+}
+
+.badge {
+  display: inline-block;
+  white-space: nowrap;
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.badge.Received {
+  background: #d4edda;
+  color: #155724;
+}
+
+.badge.PartiallyReceived {
+  background: #fff3cd;
+  color: #856404;
+}
+
+.badge.NotReceived {
+  background: #f8d7da;
+  color: #721c24;
+}
+
+.error {
+  color: #b00020;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+button {
+  padding: 6px 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background: #fff;
+  cursor: pointer;
+}
+
+button.primary {
+  background: #1976d2;
+  border-color: #1976d2;
+  color: #fff;
+}
+
+button.danger {
+  color: #b00020;
+  border-color: #e0a0a8;
+}
+
+button:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
+input {
+  padding: 6px 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  min-width: 0;
+}
+
+.command-form {
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  padding: 16px;
+  margin-bottom: 24px;
+  background: #fafafa;
+}
+
+.command-form h2 {
+  margin-top: 0;
+}
+
+.command-form label {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 12px;
+  font-weight: 600;
+}
+
+.command-form fieldset {
+  padding: 8px 12px 12px;
+}
+
+.command-form legend {
+  font-weight: 600;
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.row > input {
+  flex: 1 1 140px;
+}
+
+.product-row input[type='number'] {
+  flex: 0 0 90px;
+}
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.receipt-editor {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+}
+
+button {
+  white-space: nowrap;
+}
+
+td:last-child {
+  width: 1%;
+  white-space: nowrap;
+}
+
+select {
+  padding: 5px 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}

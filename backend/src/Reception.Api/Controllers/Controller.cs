@@ -25,6 +25,25 @@ public class Controller : ControllerBase
         _productReceiptService = productReceiptService;
     }
 
+    [HttpGet("commands")]
+    [ProducesResponseType(typeof(IReadOnlyList<CommandDto>), StatusCodes.Status200OK)]
+    public async Task<ActionResult<IReadOnlyList<CommandDto>>> GetAllCommands()
+    {
+        return Ok(await _commandService.GetAllCommands());
+    }
+
+    [HttpPost("commands")]
+    [ProducesResponseType(typeof(CommandDto), StatusCodes.Status201Created)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<ActionResult<CommandDto>> CreateCommand(CreateCommandRequest request)
+    {
+        var result = await _commandService.CreateCommand(request);
+        if (!result.IsSuccess)
+            return BadRequest(new { errors = result.Errors });
+
+        return CreatedAtAction(nameof(GetCommandById), new { commandId = result.Command!.CommandId }, result.Command);
+    }
+
     [HttpGet("command/{commandId}")]
     [ProducesResponseType(typeof(CommandDto), StatusCodes.Status200OK)]
     public async Task<ActionResult<CommandDto>> GetCommandById(string commandId)
@@ -34,6 +53,14 @@ public class Controller : ControllerBase
             return NotFound();
 
         return Ok(command);
+    }
+
+    [HttpPut("{commandId}/receipt")]
+    [ProducesResponseType(typeof(CommandDto), StatusCodes.Status200OK)]
+    public async Task<ActionResult<CommandDto>> UpdateCommandReceipt(string commandId, bool isReceived)
+    {
+        var command = await _commandService.UpdateReceipt(commandId, isReceived);
+        return command is null ? NotFound() : Ok(command);
     }
 
     [HttpPut("{commandId}/palettes/{paletteId}/receipt")]
